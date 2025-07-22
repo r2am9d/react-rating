@@ -1,14 +1,17 @@
 import { useState } from "react";
+import StarComponent from "./StarComponent";
+import FeedbackComponent from "./FeedbackComponent";
 
 const RatingComponent = ({
   header = "Rate your experience",
   color = "gold",
+  starCount = 5,
+  messages = ["Terrible", "Poor", "Fair", "Good", "Excellent"],
 }) => {
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
 
-  const stars = Array.from({ length: 5 }, (_, i) => i);
-  const messages = ["Terrible", "Poor", "Fair", "Good", "Excellent"];
+  const stars = Array.from({ length: starCount }, (_, i) => i + 1);
 
   const onClick = (index) => (e) => setRating(index);
   const onHover = (index) => (e) => setHover(index);
@@ -17,25 +20,22 @@ const RatingComponent = ({
     <div className="rating-container">
       <h2>{header}</h2>
       <div className="stars">
-        {stars.map((e, i) => {
-          const idx = i + 1;
+        {stars.map((e) => {
           return (
-            <span
-              onClick={onClick(idx)}
-              onMouseEnter={onHover(idx)}
-              onMouseLeave={onHover(null)}
+            <StarComponent
               key={e}
-              className="star"
-              style={{
-                color: idx <= (hover || rating) ? color : "#CCC",
-              }}
-            >
-              {"\u2605"}
-            </span>
+              star={e}
+              rating={rating}
+              hover={hover}
+              color={color}
+              onClick={onClick}
+              onMouseEnter={onHover}
+              onMouseLeave={onHover}
+            />
           );
         })}
       </div>
-      {rating && <div className="feedback">{messages[rating - 1]}</div>}
+      <FeedbackComponent rating={rating} message={messages[rating - 1]} />
     </div>
   );
 };
