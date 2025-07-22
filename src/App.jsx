@@ -3,7 +3,7 @@ import RatingComponent from "./components/RatingComponent";
 const App = () => {
   return (
     <>
-      <RatingComponent />
+      <RatingComponent color="red" />
     </>
   );
 };

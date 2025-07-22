@@ -1,6 +1,9 @@
 import { useState } from "react";
 
-const RatingComponent = () => {
+const RatingComponent = ({
+  header = "Rate your experience",
+  color = "gold",
+}) => {
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
 
@@ -12,7 +15,7 @@ const RatingComponent = () => {
 
   return (
     <div className="rating-container">
-      <h2>Rate your experience</h2>
+      <h2>{header}</h2>
       <div className="stars">
         {stars.map((e, i) => {
           const idx = i + 1;
@@ -22,7 +25,10 @@ const RatingComponent = () => {
               onMouseEnter={onHover(idx)}
               onMouseLeave={onHover(null)}
               key={e}
-              className={`star ${idx <= (hover || rating) ? "active" : ""}`}
+              className="star"
+              style={{
+                color: idx <= (hover || rating) ? color : "#CCC",
+              }}
             >
               {"\u2605"}
             </span>
