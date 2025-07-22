@@ -8,15 +8,17 @@ const StarComponent = ({
   onMouseLeave,
 }) => {
   return (
-    <span
-      className="star"
-      style={{ color: star <= (hover || rating) ? color : "#CCC" }}
-      onClick={onClick(star)}
-      onMouseEnter={onMouseEnter(star)}
-      onMouseLeave={onMouseLeave(null)}
-    >
-      {"\u2605"}
-    </span>
+    <>
+      <span
+        className="star"
+        style={{ color: star <= (hover || rating) ? color : "#CCC" }}
+        onClick={onClick(star)}
+        onMouseEnter={onMouseEnter(star)}
+        onMouseLeave={onMouseLeave(null)}
+      >
+        {"\u2605"}
+      </span>
+    </>
   );
 };
 

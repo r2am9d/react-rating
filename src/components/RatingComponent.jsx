@@ -2,6 +2,7 @@ import { useState } from "react";
 import StarComponent from "./StarComponent";
 import FeedbackComponent from "./FeedbackComponent";
 import ModalComponent from "./ModalComponent";
+import ButtonComponent from "./ButtonComponent";
 
 const RatingComponent = ({
   header = "Rate your experience",
@@ -27,38 +28,39 @@ const RatingComponent = ({
   };
 
   return (
-    <div className="rating-container">
-      <h2>{header}</h2>
-      <div className="stars">
-        {stars.map((e) => {
-          return (
-            <StarComponent
-              key={e}
-              star={e}
-              rating={rating}
-              hover={hover}
-              color={color}
-              onClick={onClick}
-              onMouseEnter={onHover}
-              onMouseLeave={onHover}
-            />
-          );
-        })}
+    <>
+      <div className="rating-container">
+        <h2>{header}</h2>
+        <div className="stars">
+          {stars.map((e) => {
+            return (
+              <StarComponent
+                key={e}
+                star={e}
+                rating={rating}
+                hover={hover}
+                color={color}
+                onClick={onClick}
+                onMouseEnter={onHover}
+                onMouseLeave={onHover}
+              />
+            );
+          })}
+        </div>
+        <FeedbackComponent rating={rating} message={messages[rating - 1]} />
+        <ButtonComponent
+          className="submit-btn"
+          onClick={onSubmit(true)}
+          disabled={rating === null}
+          text="Submit"
+        />
+        <ModalComponent
+          isOpen={submit}
+          rating={rating}
+          onClick={onSubmit(false)}
+        />
       </div>
-      <FeedbackComponent rating={rating} message={messages[rating - 1]} />
-      <button
-        className="submit-btn"
-        onClick={onSubmit(true)}
-        disabled={rating === null}
-      >
-        Submit
-      </button>
-      <ModalComponent
-        isOpen={submit}
-        rating={rating}
-        onClick={onSubmit(false)}
-      />
-    </div>
+    </>
   );
 };
 
